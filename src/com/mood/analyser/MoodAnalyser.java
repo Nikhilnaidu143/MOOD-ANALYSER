@@ -16,15 +16,20 @@ public class MoodAnalyser {
 		this.input_message = input_message;
 	}
 
-	/** UC-2 :- Handle Exception if User Provides Invalid Mood. **/
-	public String analyseMood() {
-		try {
-			if (input_message.contains("Sad")) {
-				return "SAD";
-			} else {
-				return "HAPPY";
-			}
-		} catch (NullPointerException ex) {
+	/** UC-3 :- Inform user if entered Invalid Mood. **/
+	public String analyseMood() throws MoodAnalysisException {
+		if (input_message == null) {
+			throw new MoodAnalysisException(
+					MoodAnalysisException.type_of_exception.NULL_MOOD_EXCEPTION + " Please enter valid message.");
+
+		} else if (input_message.isEmpty()) {
+			throw new MoodAnalysisException(
+					MoodAnalysisException.type_of_exception.EMPTY_MOOD_EXCEPTION + " Please enter valid message.");
+
+		} else if (input_message.contains("Sad")) {
+			return "SAD";
+
+		} else {
 			return "HAPPY";
 		}
 	}
